@@ -51,6 +51,7 @@ namespace MinesweeperForms
             DisplayBoardOnButtons();
         }
 
+        #region Board Button Clicked
         private void ButtonPressed(object? sender, EventArgs e)
         {
             Debug.WriteLine((sender as Button).Tag);
@@ -66,7 +67,32 @@ namespace MinesweeperForms
 
         public void CheckButtonNeighbours(int x, int y)
         {
-            Debug.WriteLine("ButtonPressed");
+            Debug.WriteLine($"Checking {x},{y}");
+            
+            //Make Cell Different, so it isn't rechecked
+            board[x, y] = '/';
+
+            //Update button
+            buttons[x + y * 10].BackColor = Color.White;
+
+            for (int offsetX = -1; offsetX < 2; offsetX++)
+            {
+                for (int offsetY = -1; offsetY < 2; offsetY++)
+                {
+                    if (offsetX == 0 && offsetY == 0) { continue; }//Is current cell, skip
+                    //Skip Out of Bounds
+                    else if (x + offsetX < 0 || x + offsetX >= w) { continue; }
+                    else if (y + offsetY < 0 || y + offsetY >= h) { continue; }
+
+                    //Is in bounds, is not active cell!
+
+                    //If cell is 0, check IT'S neighbours
+                    if (board[x + offsetX, y + offsetY] == '0'){ CheckButtonNeighbours(x + offsetX, y + offsetY); }
+
+                    //If it isn't 0, update the button, but DO NOT run function on it
+                    if (board[x + offsetX, y + offsetY] != '#') { buttons[(x+offsetX) + (y+offsetY) * 10].BackColor = Color.White; }
+                }
+            }
         }
 
         public void DisplayBoardOnButtons()
@@ -80,5 +106,6 @@ namespace MinesweeperForms
                 }
             }
         }
+        #endregion
     }
 }
