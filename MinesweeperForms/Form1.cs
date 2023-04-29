@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using MinesweeperBackend;
 
 namespace MinesweeperForms
@@ -35,7 +35,7 @@ namespace MinesweeperForms
                 {
                     //Place buttons
                     buttons.Add(new Button());
-                    buttons[x + y * 10].Text = (x + y * 10).ToString();
+                    buttons[x + y * 10].Text = board[x,y].ToString();
                     buttons[x + y * 10].Location = new Point(x*50, y*50);
                     buttons[x + y * 10].Width = 50;
                     buttons[x + y * 10].Height = 50;
@@ -59,10 +59,11 @@ namespace MinesweeperForms
             int x = int.Parse(btnCoords[0]);
             int y = int.Parse(btnCoords[1]);
             buttons[x + y * 10].BackColor = Color.White;
-            if(buttons[x + y * 10].Text == "0")
+            if(board[x, y] == '0')
             {
                 CheckButtonNeighbours(x, y);
             }
+            DisplayBoardOnButtons();
         }
 
         public void CheckButtonNeighbours(int x, int y)
@@ -102,10 +103,21 @@ namespace MinesweeperForms
             {
                 for (int x = 0; x < w; x++)
                 {
-                    buttons[x + y * 10].Text = board[x,y].ToString();
+                    string bt = board[x,y].ToString();
+                    Debug.WriteLine(bt);
+                    if(bt == "#") { buttons[x + y * 10].Text = "💣"; }
+                    if(bt == "/") { buttons[x + y * 10].Text = " "; }
+                    if(bt == "0") { buttons[x + y * 10].Text = " "; }
+                    //buttons[x + y * 10].BackColor = Color.Red;
+                    //buttons[x + y * 10].Text = bt;
                 }
             }
         }
         #endregion
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DisplayBoardOnButtons();
+        }
     }
 }
