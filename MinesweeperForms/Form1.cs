@@ -10,18 +10,36 @@ namespace MinesweeperForms
         char[,] board { get; set; }
         int w { get; set; }
         int h { get; set; }
+        bool gameStarted { get; set; }
 
         public Form1()
         {
             InitializeComponent();
-            CreateBoard();
+            gameStarted = false;
             GenerateButtons(10, 10);
         }
 
-        public void CreateBoard()
+        public void CreateBoard(int bx, int by)
         {
-            ms = new Minesweeper(10, 10);
-            board = ms.board;
+            while (true)
+            {
+                ms = new Minesweeper(10, 10);
+                if (ms.board[bx, by] == '0')
+                {
+                    board = ms.board;
+                    break;
+                }
+            }
+
+            for (int y = 0; y < h; y++)
+            {
+                for (int x = 0; x < w; x++)
+                {
+                    //Put values into board
+                    buttons[x + y * 10].Text = board[x, y].ToString();
+                }
+            }
+            gameStarted = true;
         }
 
         public void GenerateButtons(int width, int height)
@@ -35,7 +53,7 @@ namespace MinesweeperForms
                 {
                     //Place buttons
                     buttons.Add(new Button());
-                    buttons[x + y * 10].Text = board[x,y].ToString();
+                    //buttons[x + y * 10].Text = board[x,y].ToString();
                     buttons[x + y * 10].Location = new Point(x*50, y*50);
                     buttons[x + y * 10].Width = 50;
                     buttons[x + y * 10].Height = 50;
@@ -47,23 +65,28 @@ namespace MinesweeperForms
 
                 }
             }
-
-            DisplayBoardOnButtons();
         }
 
         #region Board Button Clicked
         private void ButtonPressed(object? sender, EventArgs e)
         {
-            Debug.WriteLine((sender as Button).Tag);
             string[] btnCoords = ((sender as Button).Tag as string).Split(',');
             int x = int.Parse(btnCoords[0]);
             int y = int.Parse(btnCoords[1]);
+
+            if (!gameStarted)
+            {
+                //Board needs creating
+                CreateBoard(x, y);
+            }
+            
+            Debug.WriteLine((sender as Button).Tag);                
             buttons[x + y * 10].BackColor = Color.White;
-            if(board[x, y] == '0')
+            if (board[x, y] == '0')
             {
                 CheckButtonNeighbours(x, y);
             }
-            DisplayBoardOnButtons();
+            DisplayBoardOnButtons(); 
         }
 
         public void CheckButtonNeighbours(int x, int y)

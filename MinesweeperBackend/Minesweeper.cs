@@ -16,7 +16,7 @@
             height = h;
 
             //create the random generator to use. Use this seed to get consistient results during testing
-            random = new Random(seed);
+            random = new Random();
 
             //Generate the board as a list
             board = new char[width, height];
