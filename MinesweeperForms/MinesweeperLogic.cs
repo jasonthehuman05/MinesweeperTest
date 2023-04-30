@@ -14,22 +14,32 @@ namespace MinesweeperForms
         Minesweeper ms;
         Control.ControlCollection Controls;
         char[,] board { get; set; }
-        int w { get; set; }
-        int h { get; set; }
+        int boardWidth { get; set; }
+        int boardHeight { get; set; }
         bool gameStarted { get; set; }
 
-        public MinesweeperLogic(Control.ControlCollection _c)
+        public MinesweeperLogic(Control.ControlCollection _c, int gridx, int gridy, int holderWidth, int holderHeight)
         {
-            Controls = _c;
+            Controls = _c;//Get control collection from form/panel/whatever
             gameStarted = false;
-            GenerateButtons(10, 10);
+
+            boardWidth = gridx;
+            boardHeight = gridy;
+
+            //Do not question this code :(
+            double wraw = holderWidth / gridx;
+            double hraw = holderHeight / gridx;
+            int bwid = int.Parse(Math.Floor(wraw).ToString());
+            int bhgt = int.Parse(Math.Floor(hraw).ToString());
+
+            GenerateButtons(gridx, gridy, bwid, bhgt);//Create the buttons
         }
 
         public void CreateBoard(int bx, int by)
         {
             while (true)
             {
-                ms = new Minesweeper(10, 10);
+                ms = new Minesweeper(boardWidth, boardHeight);
                 if (ms.board[bx, by] == '0')
                 {
                     board = ms.board;
@@ -37,37 +47,37 @@ namespace MinesweeperForms
                 }
             }
 
-            for (int y = 0; y < h; y++)
+            for (int y = 0; y < boardHeight; y++)
             {
-                for (int x = 0; x < w; x++)
+                for (int x = 0; x < boardWidth; x++)
                 {
                     //Put values into board
-                    buttons[x + y * 10].Text = board[x, y].ToString();
+                    buttons[x + y *  boardWidth].Text = board[x, y].ToString();
                 }
             }
             gameStarted = true;
         }
 
-        public void GenerateButtons(int width, int height)
+        public void GenerateButtons(int rows, int columns, int bwid, int bhgt)
         {
-            w = width;
-            h = height;
+            boardWidth = rows;
+            boardHeight = columns;
 
-            for (int y = 0; y < height; y++)
+            for (int y = 0; y < columns; y++)
             {
-                for (int x = 0; x < width; x++)
+                for (int x = 0; x < rows; x++)
                 {
                     //Place buttons
                     buttons.Add(new Button());
-                    //buttons[x + y * 10].Text = board[x,y].ToString();
-                    buttons[x + y * 10].Location = new Point(x * 50, y * 50);
-                    buttons[x + y * 10].Width = 50;
-                    buttons[x + y * 10].Height = 50;
-                    buttons[x + y * 10].Tag = $"{x},{y}";
-                    buttons[x + y * 10].BackColor = Color.Black;
-                    buttons[x + y * 10].ForeColor = Color.Black;
-                    buttons[x + y * 10].Click += ButtonPressed;
-                    Controls.Add(buttons[x + y * 10]);
+                    //buttons[x + y *  boardWidth].Text = board[x,y].ToString();
+                    buttons[x + y *  boardWidth].Location = new Point(x * bwid, y * bhgt);
+                    buttons[x + y *  boardWidth].Width = bwid;
+                    buttons[x + y *  boardWidth].Height = bhgt;
+                    buttons[x + y *  boardWidth].Tag = $"{x},{y}";
+                    buttons[x + y *  boardWidth].BackColor = Color.Black;
+                    buttons[x + y *  boardWidth].ForeColor = Color.Black;
+                    buttons[x + y *  boardWidth].Click += ButtonPressed;
+                    Controls.Add(buttons[x + y *  boardWidth]);
 
                 }
             }
@@ -87,7 +97,7 @@ namespace MinesweeperForms
             }
 
             Debug.WriteLine((sender as Button).Tag);
-            buttons[x + y * 10].BackColor = Color.White;
+            buttons[x + y *  boardWidth].BackColor = Color.White;
             if (board[x, y] == '0')
             {
                 CheckButtonNeighbours(x, y);
@@ -103,7 +113,7 @@ namespace MinesweeperForms
             board[x, y] = '/';
 
             //Update button
-            buttons[x + y * 10].BackColor = Color.White;
+            buttons[x + y *  boardWidth].BackColor = Color.White;
 
             for (int offsetX = -1; offsetX < 2; offsetX++)
             {
@@ -111,8 +121,8 @@ namespace MinesweeperForms
                 {
                     if (offsetX == 0 && offsetY == 0) { continue; }//Is current cell, skip
                     //Skip Out of Bounds
-                    else if (x + offsetX < 0 || x + offsetX >= w) { continue; }
-                    else if (y + offsetY < 0 || y + offsetY >= h) { continue; }
+                    else if (x + offsetX < 0 || x + offsetX >= boardWidth) { continue; }
+                    else if (y + offsetY < 0 || y + offsetY >= boardHeight) { continue; }
 
                     //Is in bounds, is not active cell!
 
@@ -120,7 +130,7 @@ namespace MinesweeperForms
                     if (board[x + offsetX, y + offsetY] == '0') { CheckButtonNeighbours(x + offsetX, y + offsetY); }
 
                     //If it isn't 0, update the button, but DO NOT run function on it
-                    if (board[x + offsetX, y + offsetY] != '#') { buttons[(x + offsetX) + (y + offsetY) * 10].BackColor = Color.White; }
+                    if (board[x + offsetX, y + offsetY] != '#') { buttons[(x + offsetX) + (y + offsetY) * boardWidth].BackColor = Color.White; }
                 }
             }
         }
@@ -128,15 +138,15 @@ namespace MinesweeperForms
         public void DisplayBoardOnButtons()
         {
             //Display board on form
-            for (int y = 0; y < h; y++)
+            for (int y = 0; y < boardHeight; y++)
             {
-                for (int x = 0; x < w; x++)
+                for (int x = 0; x < boardWidth; x++)
                 {
                     string bt = board[x, y].ToString();
                     Debug.WriteLine(bt);
-                    if (bt == "#") { buttons[x + y * 10].Text = "💣"; }
-                    if (bt == "/") { buttons[x + y * 10].Text = " "; }
-                    if (bt == "0") { buttons[x + y * 10].Text = " "; }
+                    if (bt == "#") { buttons[x + y *  boardWidth].Text = "💣"; }
+                    if (bt == "/") { buttons[x + y *  boardWidth].Text = " "; }
+                    if (bt == "0") { buttons[x + y *  boardWidth].Text = " "; }
                 }
             }
         }

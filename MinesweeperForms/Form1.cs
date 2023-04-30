@@ -10,7 +10,7 @@ namespace MinesweeperForms
         public Form1()
         {
             InitializeComponent();
-            ml = new MinesweeperLogic(this.Controls);
+            ml = new MinesweeperLogic(gameBoardPanel.Controls, 50, 50, gameBoardPanel.Width, gameBoardPanel.Height);
         }
     }
 }
