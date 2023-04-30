@@ -45,7 +45,7 @@ namespace MinesweeperForms
                 ms = new Minesweeper(boardWidth, boardHeight);
                 if (ms.board[bx, by] == '0')
                 {
-                    board = ms.board;
+                    board = (char[,])ms.board.Clone();
                     break;
                 }
             }
