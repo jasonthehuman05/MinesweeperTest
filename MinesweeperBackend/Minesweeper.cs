@@ -1,11 +1,13 @@
-﻿namespace MinesweeperBackend
+﻿using System.Diagnostics;
+
+namespace MinesweeperBackend
 {
     public class Minesweeper
     {
         int width { get; set; } = 10;
         int height { get; set; } = 10;
         int mineCount { get; set; } = 10;
-        public char[,] board { get; set; }
+        public char[,] board { get; private set; }
         int seed = 234509873;
         char bomb = '#';
         Random random;
@@ -98,13 +100,13 @@
 
         public void DisplayBoard()
         {
-            for (int x = 0; x < width; x++)
+            for (int y = 0; y < height; y++)
             {
-                for (int y = 0; y < height; y++)
+                for (int x = 0; x < width; x++)
                 {
-                    Console.Write(board[x, y]);
+                    Debug.Write(board[x, y]);
                 }
-                Console.WriteLine();
+                Debug.WriteLine("");
             }
         }
     }

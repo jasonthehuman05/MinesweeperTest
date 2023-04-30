@@ -127,13 +127,14 @@ namespace MinesweeperForms
                     buttons[x + y * boardWidth].BackColor = Color.Black;
                 }
                 //If its a mine, mark it as a flagged mine
-                if (board[x,y] == '#')
+                else if (board[x,y] == '#')
                 {
                     board[x, y] = '@';
                     buttons[x + y * boardWidth].BackColor = Color.Red;
                 }
                 else//It isn't anything relevant so it gets a different symbol
                 {
+                    Debug.WriteLine("Here");
                     board[x, y] = '%';
                     buttons[x + y * boardWidth].BackColor = Color.Red;
                 }
@@ -179,11 +180,17 @@ namespace MinesweeperForms
                 {
                     string bt = board[x, y].ToString();
                     if (bt == "#") { buttons[x + y *  boardWidth].Text = "💣"; } //If it's an unflagged mine
-                    if (bt == "@" || bt == "%") { buttons[x + y *  boardWidth].Text = "⛳"; } //If it's an unflagged mine
+                    if (bt == "%") { buttons[x + y *  boardWidth].Text = "⛳£"; } //If it's an unflagged mine
+                    if (bt == "@" ) { buttons[x + y *  boardWidth].Text = "⛳!"; } //If it's an unflagged mine
                     if (bt == "/") { buttons[x + y *  boardWidth].Text = " "; }
                     if (bt == "0") { buttons[x + y *  boardWidth].Text = " "; }
                 }
             }
+        }
+
+        public void Show()
+        {
+            ms.DisplayBoard();
         }
         #endregion
     }

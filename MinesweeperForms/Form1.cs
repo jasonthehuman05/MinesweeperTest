@@ -12,5 +12,11 @@ namespace MinesweeperForms
             InitializeComponent();
             ml = new MinesweeperLogic(10, 10, gameBoardPanel);
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //Console write board
+            ml.Show();
+        }
     }
 }
