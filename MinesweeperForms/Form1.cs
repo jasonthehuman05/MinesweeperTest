@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+﻿ using System.Diagnostics;
 using MinesweeperBackend;
 
 namespace MinesweeperForms
@@ -10,7 +10,7 @@ namespace MinesweeperForms
         public Form1()
         {
             InitializeComponent();
-            ml = new MinesweeperLogic(50, 50, gameBoardPanel);
+            ml = new MinesweeperLogic(10, 10, gameBoardPanel);
         }
     }
 }

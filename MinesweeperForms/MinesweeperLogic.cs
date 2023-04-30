@@ -79,7 +79,7 @@ namespace MinesweeperForms
                     buttons[x + y *  boardWidth].Tag = $"{x},{y}";
                     buttons[x + y *  boardWidth].BackColor = Color.Black;
                     buttons[x + y *  boardWidth].ForeColor = Color.Black;
-                    buttons[x + y *  boardWidth].Click += ButtonPressed;
+                    buttons[x + y *  boardWidth].MouseUp += ButtonPressed;
                     Controls.Add(buttons[x + y *  boardWidth]);
 
                 }
@@ -87,31 +87,63 @@ namespace MinesweeperForms
         }
 
         #region Board Button Clicked
-        private void ButtonPressed(object? sender, EventArgs e)
+        private void ButtonPressed(object? sender, MouseEventArgs me)
         {
+            //Find button grid location
             string[] btnCoords = ((sender as Button).Tag as string).Split(',');
             int x = int.Parse(btnCoords[0]);
             int y = int.Parse(btnCoords[1]);
 
-            if (!gameStarted)
-            {
-                //Board needs creating
-                CreateBoard(x, y);
+            //Need to know mouse button that was pressed
+            Debug.WriteLine(me.Button);
+
+            //LMB should clear the grid
+            if (me.Button == MouseButtons.Left) { 
+                if (!gameStarted)
+                {
+                    //Board needs creating
+                    CreateBoard(x, y);
+                }
+
+                buttons[x + y * boardWidth].BackColor = Color.White;
+                if (board[x, y] == '0')
+                {
+                    CheckButtonNeighbours(x, y);
+                }
+                if(board[x, y] == '#')
+                {
+                    //Mine hit
+                    MessageBox.Show("Mine Hit");
+                }
             }
 
-            Debug.WriteLine((sender as Button).Tag);
-            buttons[x + y *  boardWidth].BackColor = Color.White;
-            if (board[x, y] == '0')
+            //RMB should put a flag down
+            else if(me.Button == MouseButtons.Right)
             {
-                CheckButtonNeighbours(x, y);
+                //If it is already flagged, undo it
+                if (board[x,y] == '@' || board[x,y] == '%')
+                {
+                    board[x, y] = ms.board[x, y];
+                    buttons[x + y * boardWidth].BackColor = Color.Black;
+                }
+                //If its a mine, mark it as a flagged mine
+                if (board[x,y] == '#')
+                {
+                    board[x, y] = '@';
+                    buttons[x + y * boardWidth].BackColor = Color.Red;
+                }
+                else//It isn't anything relevant so it gets a different symbol
+                {
+                    board[x, y] = '%';
+                    buttons[x + y * boardWidth].BackColor = Color.Red;
+                }
             }
+
             DisplayBoardOnButtons();
         }
 
         public void CheckButtonNeighbours(int x, int y)
         {
-            Debug.WriteLine($"Checking {x},{y}");
-
             //Make Cell Different, so it isn't rechecked
             board[x, y] = '/';
 
@@ -146,8 +178,8 @@ namespace MinesweeperForms
                 for (int x = 0; x < boardWidth; x++)
                 {
                     string bt = board[x, y].ToString();
-                    Debug.WriteLine(bt);
-                    if (bt == "#") { buttons[x + y *  boardWidth].Text = "💣"; }
+                    if (bt == "#") { buttons[x + y *  boardWidth].Text = "💣"; } //If it's an unflagged mine
+                    if (bt == "@" || bt == "%") { buttons[x + y *  boardWidth].Text = "⛳"; } //If it's an unflagged mine
                     if (bt == "/") { buttons[x + y *  boardWidth].Text = " "; }
                     if (bt == "0") { buttons[x + y *  boardWidth].Text = " "; }
                 }

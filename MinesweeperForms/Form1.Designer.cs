@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.gameBoardPanel = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // gameBoardPanel
@@ -39,11 +40,22 @@
             this.gameBoardPanel.Size = new System.Drawing.Size(800, 800);
             this.gameBoardPanel.TabIndex = 0;
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Black;
+            this.button1.Location = new System.Drawing.Point(199, 868);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(115, 64);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "#";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(824, 961);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.gameBoardPanel);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -54,5 +66,6 @@
         #endregion
 
         private Panel gameBoardPanel;
+        private Button button1;
     }
 }
