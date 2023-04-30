@@ -33,7 +33,7 @@ namespace MinesweeperBackend
             FillNumbers();
 
             //Output board to console
-            DisplayBoard();
+            //DisplayBoard();
         }
 
         public void EmptyBoard()

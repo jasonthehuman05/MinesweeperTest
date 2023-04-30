@@ -95,7 +95,7 @@ namespace MinesweeperForms
             int y = int.Parse(btnCoords[1]);
 
             //Need to know mouse button that was pressed
-            Debug.WriteLine(me.Button);
+            //Debug.WriteLine(me.Button);
 
             //LMB should clear the grid
             if (me.Button == MouseButtons.Left) { 
@@ -134,7 +134,6 @@ namespace MinesweeperForms
                 }
                 else//It isn't anything relevant so it gets a different symbol
                 {
-                    Debug.WriteLine("Here");
                     board[x, y] = '%';
                     buttons[x + y * boardWidth].BackColor = Color.Red;
                 }
