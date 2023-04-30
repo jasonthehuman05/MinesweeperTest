@@ -63,6 +63,10 @@ namespace MinesweeperForms
 
         public void GenerateButtons(int rows, int columns, int bwid, int bhgt)
         {
+            //remove any buttons
+            Controls.Clear();
+            buttons.Clear();
+
             boardWidth = rows;
             boardHeight = columns;
 

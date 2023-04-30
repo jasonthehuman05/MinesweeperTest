@@ -13,10 +13,9 @@ namespace MinesweeperForms
             ml = new MinesweeperLogic(10, 10, gameBoardPanel);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void createBoardButton_Click(object sender, EventArgs e)
         {
-            //Console write board
-            ml.Show();
+
         }
     }
 }
