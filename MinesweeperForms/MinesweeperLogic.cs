@@ -18,13 +18,16 @@ namespace MinesweeperForms
         int boardHeight { get; set; }
         bool gameStarted { get; set; }
 
-        public MinesweeperLogic(Control.ControlCollection _c, int gridx, int gridy, int holderWidth, int holderHeight)
+        public MinesweeperLogic(int gridx, int gridy, Control container)
         {
-            Controls = _c;//Get control collection from form/panel/whatever
             gameStarted = false;
 
             boardWidth = gridx;
             boardHeight = gridy;
+
+            Controls = container.Controls;
+            int holderWidth = container.Width;
+            int holderHeight = container.Height;
 
             //Do not question this code :(
             double wraw = holderWidth / gridx;
