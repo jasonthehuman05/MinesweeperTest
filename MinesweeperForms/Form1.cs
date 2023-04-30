@@ -10,12 +10,11 @@ namespace MinesweeperForms
         public Form1()
         {
             InitializeComponent();
-            ml = new MinesweeperLogic(10, 10, gameBoardPanel);
         }
 
         private void createBoardButton_Click(object sender, EventArgs e)
         {
-
+            ml = new MinesweeperLogic((int)widthInput.Value, (int)heightInput.Value, (int)mineCountInput.Value, gameBoardPanel);
         }
     }
 }

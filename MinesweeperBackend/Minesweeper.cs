@@ -12,10 +12,11 @@ namespace MinesweeperBackend
         char bomb = '#';
         Random random;
 
-        public Minesweeper(int w, int h)
+        public Minesweeper(int w, int h, int mc)
         {
             width = w;
             height = h;
+            mineCount = mc;
 
             //create the random generator to use. Use this seed to get consistient results during testing
             random = new Random();
@@ -33,7 +34,7 @@ namespace MinesweeperBackend
             FillNumbers();
 
             //Output board to console
-            //DisplayBoard();
+            DisplayBoard();
         }
 
         public void EmptyBoard()

@@ -28,18 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.NumericUpDown mineCountInput;
             this.gameBoardPanel = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.widthInput = new System.Windows.Forms.NumericUpDown();
             this.heightInput = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
+            this.mineCountInput = new System.Windows.Forms.NumericUpDown();
             this.createBoardButton = new System.Windows.Forms.Button();
-            mineCountInput = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.widthInput)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heightInput)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(mineCountInput)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mineCountInput)).BeginInit();
             this.SuspendLayout();
             // 
             // gameBoardPanel
@@ -103,12 +102,12 @@
             // 
             // mineCountInput
             // 
-            mineCountInput.Location = new System.Drawing.Point(119, 915);
-            mineCountInput.Name = "mineCountInput";
-            mineCountInput.Size = new System.Drawing.Size(120, 23);
-            mineCountInput.TabIndex = 2;
-            mineCountInput.Value = new decimal(new int[] {
-            25,
+            this.mineCountInput.Location = new System.Drawing.Point(119, 915);
+            this.mineCountInput.Name = "mineCountInput";
+            this.mineCountInput.Size = new System.Drawing.Size(120, 23);
+            this.mineCountInput.TabIndex = 2;
+            this.mineCountInput.Value = new decimal(new int[] {
+            15,
             0,
             0,
             0});
@@ -129,7 +128,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(824, 961);
             this.Controls.Add(this.createBoardButton);
-            this.Controls.Add(mineCountInput);
+            this.Controls.Add(this.mineCountInput);
             this.Controls.Add(this.heightInput);
             this.Controls.Add(this.widthInput);
             this.Controls.Add(this.label3);
@@ -140,7 +139,7 @@
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.widthInput)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.heightInput)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(mineCountInput)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mineCountInput)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -155,5 +154,6 @@
         private NumericUpDown heightInput;
         private Label label3;
         private Button createBoardButton;
+        private NumericUpDown mineCountInput;
     }
 }

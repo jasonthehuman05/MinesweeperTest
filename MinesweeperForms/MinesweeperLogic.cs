@@ -11,19 +11,21 @@ namespace MinesweeperForms
     internal class MinesweeperLogic
     {
         List<Button> buttons = new List<Button>();
-        Minesweeper ms;
+        public Minesweeper ms;
         Control.ControlCollection Controls;
         char[,] board { get; set; }
         int boardWidth { get; set; }
         int boardHeight { get; set; }
+        int mineCount { get; set; }
         bool gameStarted { get; set; }
 
-        public MinesweeperLogic(int gridx, int gridy, Control container)
+        public MinesweeperLogic(int gridx, int gridy, int mc, Control container)
         {
             gameStarted = false;
 
             boardWidth = gridx;
             boardHeight = gridy;
+            mineCount = mc;
 
             Controls = container.Controls;
             int holderWidth = container.Width;
@@ -38,11 +40,12 @@ namespace MinesweeperForms
             GenerateButtons(gridx, gridy, bwid, bhgt);//Create the buttons
         }
 
-        public void CreateBoard(int bx, int by)
+        public void CreateBoard(int bx, int by, int mines)
         {
+            mineCount = mines;
             while (true)
             {
-                ms = new Minesweeper(boardWidth, boardHeight);
+                ms = new Minesweeper(boardWidth, boardHeight, mineCount);
                 if (ms.board[bx, by] == '0')
                 {
                     board = (char[,])ms.board.Clone();
@@ -106,7 +109,7 @@ namespace MinesweeperForms
                 if (!gameStarted)
                 {
                     //Board needs creating
-                    CreateBoard(x, y);
+                    CreateBoard(x, y, mineCount);
                 }
 
                 buttons[x + y * boardWidth].BackColor = Color.White;
