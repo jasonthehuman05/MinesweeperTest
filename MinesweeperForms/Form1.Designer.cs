@@ -52,7 +52,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(74, 846);
+            this.label1.Location = new System.Drawing.Point(20, 820);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(39, 15);
             this.label1.TabIndex = 1;
@@ -61,7 +61,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(70, 881);
+            this.label2.Location = new System.Drawing.Point(16, 855);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(43, 15);
             this.label2.TabIndex = 1;
@@ -69,7 +69,7 @@
             // 
             // widthInput
             // 
-            this.widthInput.Location = new System.Drawing.Point(119, 844);
+            this.widthInput.Location = new System.Drawing.Point(65, 818);
             this.widthInput.Name = "widthInput";
             this.widthInput.Size = new System.Drawing.Size(120, 23);
             this.widthInput.TabIndex = 2;
@@ -81,7 +81,7 @@
             // 
             // heightInput
             // 
-            this.heightInput.Location = new System.Drawing.Point(119, 879);
+            this.heightInput.Location = new System.Drawing.Point(65, 853);
             this.heightInput.Name = "heightInput";
             this.heightInput.Size = new System.Drawing.Size(120, 23);
             this.heightInput.TabIndex = 2;
@@ -94,7 +94,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(70, 917);
+            this.label3.Location = new System.Drawing.Point(16, 891);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(39, 15);
             this.label3.TabIndex = 1;
@@ -102,7 +102,7 @@
             // 
             // mineCountInput
             // 
-            this.mineCountInput.Location = new System.Drawing.Point(119, 915);
+            this.mineCountInput.Location = new System.Drawing.Point(65, 889);
             this.mineCountInput.Name = "mineCountInput";
             this.mineCountInput.Size = new System.Drawing.Size(120, 23);
             this.mineCountInput.TabIndex = 2;
@@ -114,7 +114,7 @@
             // 
             // createBoardButton
             // 
-            this.createBoardButton.Location = new System.Drawing.Point(245, 844);
+            this.createBoardButton.Location = new System.Drawing.Point(191, 818);
             this.createBoardButton.Name = "createBoardButton";
             this.createBoardButton.Size = new System.Drawing.Size(106, 94);
             this.createBoardButton.TabIndex = 3;
@@ -126,7 +126,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(824, 961);
+            this.ClientSize = new System.Drawing.Size(824, 921);
             this.Controls.Add(this.createBoardButton);
             this.Controls.Add(this.mineCountInput);
             this.Controls.Add(this.heightInput);
