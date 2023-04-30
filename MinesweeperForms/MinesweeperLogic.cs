@@ -17,6 +17,7 @@ namespace MinesweeperForms
         int boardWidth { get; set; }
         int boardHeight { get; set; }
         int mineCount { get; set; }
+        int flagCount { get; set; } = 0;
         bool gameStarted { get; set; }
 
         public MinesweeperLogic(int gridx, int gridy, int mc, Control container)
@@ -132,17 +133,20 @@ namespace MinesweeperForms
                 {
                     board[x, y] = ms.board[x, y];
                     buttons[x + y * boardWidth].BackColor = Color.Black;
+                    flagCount--;
                 }
                 //If its a mine, mark it as a flagged mine
                 else if (board[x,y] == '#')
                 {
                     board[x, y] = '@';
                     buttons[x + y * boardWidth].BackColor = Color.Red;
+                    flagCount++;
                 }
                 else//It isn't anything relevant so it gets a different symbol
                 {
                     board[x, y] = '%';
                     buttons[x + y * boardWidth].BackColor = Color.Red;
+                    flagCount++;
                 }
             }
 
@@ -185,12 +189,38 @@ namespace MinesweeperForms
                 for (int x = 0; x < boardWidth; x++)
                 {
                     string bt = board[x, y].ToString();
-                    if (bt == "#") { buttons[x + y *  boardWidth].Text = "💣"; } //If it's an unflagged mine
-                    if (bt == "%") { buttons[x + y *  boardWidth].Text = "⛳£"; } //If it's an unflagged mine
-                    if (bt == "@" ) { buttons[x + y *  boardWidth].Text = "⛳!"; } //If it's an unflagged mine
+                    if (bt == "#") { buttons[x + y *  boardWidth].Text = "💣"; }
+                    if (bt == "%") { buttons[x + y *  boardWidth].Text = "⛳"; } //If it's a flagged non-mine
+                    if (bt == "@" ) { buttons[x + y *  boardWidth].Text = "⛳"; } //If it's a flagged mine
                     if (bt == "/") { buttons[x + y *  boardWidth].Text = " "; }
                     if (bt == "0") { buttons[x + y *  boardWidth].Text = " "; }
                 }
+            }
+            CheckFlags();
+        }
+
+        public void CheckFlags()
+        {
+            int flaggedMines = 0;
+            if(flagCount >= mineCount)
+            {
+                for (int y = 0; y < boardHeight; y++)
+                {
+                    for (int x = 0; x < boardWidth; x++)
+                    {
+                        string boardSym = board[x, y].ToString();
+                        string origSym = ms.board[x, y].ToString();
+                        Debug.WriteLine($"POS {x},{y} ::: {boardSym} {origSym}");
+                        if(boardSym == "@" && origSym == "#")
+                        {
+                            flaggedMines++;
+                        }
+                    }
+                }
+            }
+            if(flaggedMines == mineCount)
+            {
+                MessageBox.Show("YOOO YOU WIN");
             }
         }
 
